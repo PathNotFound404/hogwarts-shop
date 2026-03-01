@@ -17,12 +17,12 @@
                         </div>
                         <div class="item-actions">
                             <div class="quantity-selector">
-                                <button class="quantity-change-button">−</button>
+                                <button class="quantity-change-button" @click="decreaseOne(shoppingCartItems[0].id)">−</button>
                                 <input type="text" class="quantity-input" 
-                                    :value="shoppingCartItems[0].quantity"
+                                    v-model.number="shoppingCartItems[0].quantity"
                                     aria-label="quantity"
                                 >
-                                <button class="quantity-change-button">+</button>
+                                <button class="quantity-change-button" @click="increaseOne(shoppingCartItems[0].id)">+</button>
                             </div>
                             <button class="remove-item">✕</button>
                         </div>
@@ -38,9 +38,9 @@
                         </div>
                         <div class="item-actions">
                             <div class="quantity-selector">
-                                <button class="quantity-change-button">−</button>
-                                <input type="text" class="quantity-input" :value="shoppingCartItems[1].quantity" aria-label="quantity">
-                                <button class="quantity-change-button">+</button>
+                                <button class="quantity-change-button" @click="decreaseOne(shoppingCartItems[1].id)">−</button>
+                                <input type="text" class="quantity-input" v-model.number="shoppingCartItems[1].quantity">
+                                <button class="quantity-change-button" @click="increaseOne(shoppingCartItems[1].id)">+</button>
                             </div>
                             <button class="remove-item">✕</button>
                         </div>
@@ -56,9 +56,9 @@
                         </div>
                         <div class="item-actions">
                             <div class="quantity-selector">
-                                <button class="quantity-change-button">−</button>
-                                <input type="text" class="quantity-input" :value="shoppingCartItems[2].quantity" aria-label="quantity">
-                                <button class="quantity-change-button">+</button>
+                                <button class="quantity-change-button" @click="decreaseOne(shoppingCartItems[2].id)">−</button>
+                                <input type="text" class="quantity-input" v-model.number="shoppingCartItems[2].quantity">
+                                <button class="quantity-change-button" @click="increaseOne(shoppingCartItems[2].id)">+</button>
                             </div>
                             <button class="remove-item">✕</button>
                         </div>
@@ -74,9 +74,9 @@
                         </div>
                         <div class="item-actions">
                             <div class="quantity-selector">
-                                <button class="quantity-change-button">−</button>
-                                <input type="text" class="quantity-input" :value="shoppingCartItems[3].quantity" aria-label="quantity">
-                                <button class="quantity-change-button">+</button>
+                                <button class="quantity-change-button" @click="decreaseOne(shoppingCartItems[3].id)">−</button>
+                                <input type="text" class="quantity-input" v-model.number="shoppingCartItems[3].quantity">
+                                <button class="quantity-change-button" @click="increaseOne(shoppingCartItems[3].id)">+</button>
                             </div>
                             <button class="remove-item">✕</button>
                         </div>
@@ -92,9 +92,9 @@
                         </div>
                         <div class="item-actions">
                             <div class="quantity-selector">
-                                <button class="quantity-change-button">−</button>
-                                <input type="text" class="quantity-input" :value="shoppingCartItems[4].quantity" aria-label="quantity">
-                                <button class="quantity-change-button">+</button>
+                                <button class="quantity-change-button" @click="decreaseOne(shoppingCartItems[4].id)">−</button>
+                                <input type="text" class="quantity-input" v-model.number="shoppingCartItems[4].quantity">
+                                <button class="quantity-change-button" @click="increaseOne(shoppingCartItems[4].id)">+</button>
                             </div>
                             <button class="remove-item">✕</button>
                         </div>
@@ -137,7 +137,7 @@
 import { ref } from 'vue'
 
 let username = 'Harry'
-let shoppingCartItems = [
+let shoppingCartItems = ref([
   {
     id: 1,
     productName: 'Dragon Liver',
@@ -178,10 +178,29 @@ let shoppingCartItems = [
     quantity: 1,
     image: 'src/assets/img/Nimbus2000.jpg'
   }
-]
+])
 
 
 let hideDetails = ref(false)
+
+function decreaseOne(id){
+    shoppingCartItems.value.some(item => {
+        if(item.id == id && item.quantity != 0){
+            item.quantity = item.quantity - 1
+        }
+    })
+}
+
+function increaseOne(id){
+    shoppingCartItems.value.some(item => {
+        if(item.id == id){
+            item.quantity = item.quantity + 1
+        }
+    })
+}
+
+
+
 </script>
 
 <style scoped>
